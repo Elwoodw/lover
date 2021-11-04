@@ -9,7 +9,14 @@ spring:
     host: localhost
     port: 6379
   cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
     gateway:
+      discovery:
+        locator:
+          enabled: true  #通过地址访问服务
+          lower-case-service-id: true
       globalcors: #全局跨域配置
         corsConfigurations:
           '[/**]':
@@ -27,25 +34,29 @@ spring:
                 - POST
       routes:
         - id: limit_route
-          uri: http://httpbin.org:80/get
+          uri: lb://mysql-service
           predicates:
             - Method=POST
           filters:
+            - PrefixPath=/file/test
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 1
                 redis-rate-limiter.burstCapacity: 3
                 key-resolver: "#{@uriKeyResolver}"
+
         - id: fuse_route
-          uri: http://httpbin.org:80/get
+          uri: lb://mysql-service
           predicates:
               - Method=GET
           filters:
-            filters:
-              - name: Hystrix
-                args:
-                  name: fallbackCmd
-                  fallbackUri: forward:/fallback
+            - PrefixPath=/file/test
+            - name: Hystrix
+              args:
+                  # 指定hystrix command的名称
+                name: fallbackCmd
+                  # 注意fallbackUri要以forward开头
+                fallbackUri: forward:/fallback
 
 hystrix.command.fallbackCmd.execution.isolation.thread.timeoutInMilliseconds: 5000
 

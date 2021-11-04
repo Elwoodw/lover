@@ -48,4 +48,11 @@ public class FileController {
         }
         return ResultBody.success(fileName+"下载成功");
     }
+
+    @GetMapping("/test")
+    public  ResultBody test() throws  InterruptedException
+    {
+      Thread.sleep(10000);
+        return ResultBody.success();
+    }
 }

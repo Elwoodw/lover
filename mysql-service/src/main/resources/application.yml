@@ -47,6 +47,7 @@ logging:
   level:
     root: info
 
+
 hystrix:
   command: #用于控制HystrixCommand的行为
     default:
