@@ -33,30 +33,23 @@ spring:
                 - DELETE
                 - POST
       routes:
-        - id: limit_route
-          uri: lb://mysql-service
-          predicates:
-            - Method=POST
-          filters:
-            - PrefixPath=/file/test
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 1
-                redis-rate-limiter.burstCapacity: 3
-                key-resolver: "#{@uriKeyResolver}"
-
         - id: fuse_route
           uri: lb://mysql-service
           predicates:
               - Method=GET
           filters:
             - PrefixPath=/file/test
-            - name: Hystrix
-              args:
-                  # 指定hystrix command的名称
-                name: fallbackCmd
-                  # 注意fallbackUri要以forward开头
-                fallbackUri: forward:/fallback
+      default-filters:
+        - name: Hystrix
+          args:
+            name: fallbackCmd  # 指定hystrix command的名称
+            fallbackUri: forward:/fallback  # 注意fallbackUri要以forward开头
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 1
+            redis-rate-limiter.burstCapacity: 3
+            key-resolver: "#{@uriKeyResolver}"
+
 
 hystrix.command.fallbackCmd.execution.isolation.thread.timeoutInMilliseconds: 5000
 

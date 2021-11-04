@@ -52,7 +52,7 @@ public class FileController {
     @GetMapping("/test")
     public  ResultBody test() throws  InterruptedException
     {
-      Thread.sleep(10000);
+//      Thread.sleep(10000);
         return ResultBody.success();
     }
 }
