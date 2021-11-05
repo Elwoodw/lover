@@ -3,6 +3,7 @@
 <mapper namespace="org.lover.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="org.lover.domain.po.User">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="BIT" property="sex" />
     <result column="height" jdbcType="INTEGER" property="height" />
@@ -81,7 +82,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, sex, height, weight, province, city, district, birth, education, phone, 
+    id, uid, name, sex, height, weight, province, city, district, birth, education, phone, 
     email, wechat, job, hobbies, sign, photo, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="org.lover.domain.po.UserExample" resultMap="BaseResultMap">
@@ -118,14 +119,14 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user (name, sex, height, 
+    insert into user (uid, name, sex, height, 
       weight, province, city, 
       district, birth, education, 
       phone, email, wechat, 
       job, hobbies, sign, 
       photo, create_time, update_time
       )
-    values (#{name,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{height,jdbcType=INTEGER}, 
+    values (#{uid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{height,jdbcType=INTEGER}, 
       #{weight,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{district,jdbcType=VARCHAR}, #{birth,jdbcType=TIMESTAMP}, #{education,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
@@ -139,6 +140,9 @@
     </selectKey>
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
       <if test="name != null">
         name,
       </if>
@@ -195,6 +199,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -263,6 +270,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=BIGINT},
+      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -325,6 +335,7 @@
   <update id="updateByExample" parameterType="map">
     update user
     set id = #{record.id,jdbcType=BIGINT},
+      uid = #{record.uid,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=BIT},
       height = #{record.height,jdbcType=INTEGER},
@@ -350,6 +361,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.lover.domain.po.User">
     update user
     <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -409,7 +423,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.lover.domain.po.User">
     update user
-    set name = #{name,jdbcType=VARCHAR},
+    set uid = #{uid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=BIT},
       height = #{height,jdbcType=INTEGER},
       weight = #{weight,jdbcType=INTEGER},

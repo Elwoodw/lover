@@ -93,5 +93,9 @@ storage:
     allow-type:
       - jpeg
       - png
+#jwt
+jwt:
+  secret: 9f@Nwe3bFv#49@ucd&EDZKJInAE1JO
+  expiration: 259200000
 
 

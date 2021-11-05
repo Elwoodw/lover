@@ -1,5 +1,6 @@
 package org.lover.controller;
 
+import cn.hutool.core.util.IdUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -7,13 +8,15 @@ import org.lover.component.FileManager;
 import org.lover.exception.BizException;
 import org.lover.exception.CommonEnum;
 import org.lover.exception.ResultBody;
+import org.lover.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Api(tags = "FileController")
 @RestController
@@ -22,6 +25,7 @@ import java.io.IOException;
 public class FileController {
     @Autowired
     private FileManager fileManager;
+
 
     @ApiOperation("上传文件")
     @PostMapping("/upload")
@@ -52,7 +56,6 @@ public class FileController {
     @GetMapping("/test")
     public  ResultBody test() throws  InterruptedException
     {
-//      Thread.sleep(10000);
         return ResultBody.success();
     }
 }

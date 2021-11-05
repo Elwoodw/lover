@@ -1,13 +1,17 @@
 package org.lover.domain.po;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
+
+
     private Long id;
+
+    @NotNull
+    private Long uid;
 
 
     @NotBlank
@@ -56,6 +60,14 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public String getName() {
@@ -209,6 +221,7 @@ public class User implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", uid=").append(uid);
         sb.append(", name=").append(name);
         sb.append(", sex=").append(sex);
         sb.append(", height=").append(height);
