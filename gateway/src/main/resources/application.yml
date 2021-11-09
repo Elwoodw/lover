@@ -39,6 +39,15 @@ spring:
               - Method=GET
           filters:
             - PrefixPath=/file/test
+        - id: retry_route  #重试机制
+          uri: lb://mysql-service
+          predicates:
+            - Path=/data/**
+          filters:
+            - name: Retry
+              args:
+               retries: 3
+               series: SERVER_ERROR
       default-filters:
         - name: Hystrix
           args:

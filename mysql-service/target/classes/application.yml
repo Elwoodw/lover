@@ -1,18 +1,40 @@
 server:
   port: 8101 #运行端口号
+
 spring:
   application:
     name: mysql-service #服务名称
+  boot:
+    admin:
+      client:
+        url: http://localhost:9301 #配置admin-server地址
   datasource:
       url: jdbc:mysql://localhost:3306/lover?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
       username: root
       password: root
+  zipkin:
+    base-url: http://localhost:9411  #Zipkin
+  sleuth:
+    sampler:
+      probability: 1.0  #采样比列
 
-      #mybatis配置
-mybatis:
+
+mybatis:  #mybatis配置
   config-location:
     - classpath:mapper/*.xml
     - classpath*:org/**/mapper/*.xml
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
 
 
 
@@ -46,6 +68,7 @@ feign:
 logging:
   level:
     root: info
+
 
 
 hystrix:
@@ -97,5 +120,8 @@ storage:
 jwt:
   secret: 9f@Nwe3bFv#49@ucd&EDZKJInAE1JO
   expiration: 259200000
+
+
+
 
 

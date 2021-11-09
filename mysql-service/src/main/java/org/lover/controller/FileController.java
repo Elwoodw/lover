@@ -10,6 +10,7 @@ import org.lover.exception.CommonEnum;
 import org.lover.exception.ResultBody;
 import org.lover.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,6 +57,7 @@ public class FileController {
     @GetMapping("/test")
     public  ResultBody test() throws  InterruptedException
     {
+
         return ResultBody.success();
     }
 }
