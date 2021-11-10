@@ -42,6 +42,14 @@ public class JwtTokenUtil {
 
     }
 
+    //返回解析后结果
+    public Object parseToken(String token)
+    {
+        JWT jwt=JWTUtil.parseToken(token);
+
+        return jwt;
+    }
+
     //验证token,算法和过期时间
     public boolean isValidToken(String token) {
         boolean isValidToken = JWTUtil.verify(token, secret.getBytes());

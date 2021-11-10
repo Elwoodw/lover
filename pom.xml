@@ -15,6 +15,7 @@
         <module>mysql-service</module>
         <module>zipkin-server</module>
         <module>admin-server</module>
+        <module>oauth2-server</module>
     </modules>
 
     <parent>

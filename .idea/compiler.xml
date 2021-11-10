@@ -12,6 +12,7 @@
         <module name="common" />
         <module name="admin-server" />
         <module name="zipkin-server" />
+        <module name="oauth2-server" />
         <module name="mysql-service" />
       </profile>
     </annotationProcessing>
