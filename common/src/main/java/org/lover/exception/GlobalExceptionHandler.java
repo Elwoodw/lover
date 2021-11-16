@@ -55,10 +55,10 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(value = Exception.class)
+/*    @ExceptionHandler(value = Exception.class)
     public ResultBody exceptionHandler(HttpServletRequest req,Exception e)
     {
         log.error("未知异常，原因是{}",e);
         return ResultBody.error(CommonEnum.INTERNAL_SERVER_ERROR);
-    }
+    }*/
 }
