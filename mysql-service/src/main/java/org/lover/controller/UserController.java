@@ -17,6 +17,7 @@ public class UserController {
         return authentication;
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/auth/admin")
     public Object adminAuth() {
         return "Has admin auth!";
